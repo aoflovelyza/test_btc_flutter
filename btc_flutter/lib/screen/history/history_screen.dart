@@ -93,6 +93,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   state.dataHistory?.historyCurrentPrice?[index]);
             }),
           );
+        } else if (state is GetdataHistoryEmptyState) {
+          return Text(
+            state.massage ?? "",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          );
         } else {
           return const Center(
             child: CircularProgressIndicator(),
