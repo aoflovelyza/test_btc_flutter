@@ -24,7 +24,10 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     } else {
       var dataHistoryJson = jsonDecode(dataHistoryString);
       var dataHistoryList = HistoryCurrentPriceModel.fromJson(dataHistoryJson);
-      emit(GetdataHistoryPassState(dataHistory: dataHistoryList));
+      emit(GetdataHistoryPassState(
+          dataHistory: dataHistoryList.copyWith(
+              historyCurrentPrice:
+                  dataHistoryList.historyCurrentPrice?.reversed.toList())));
     }
   }
 

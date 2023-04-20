@@ -1,5 +1,6 @@
-import 'package:btc_flutter/model/conver_to_string_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'package:btc_flutter/model/conver_to_string_model.dart';
 
 part 'current_price.g.dart';
 
@@ -147,4 +148,12 @@ class HistoryCurrentPriceModel {
   factory HistoryCurrentPriceModel.fromJson(Map<String, dynamic> json) =>
       _$HistoryCurrentPriceModelFromJson(json);
   Map<String, dynamic> toJson() => _$HistoryCurrentPriceModelToJson(this);
+
+  HistoryCurrentPriceModel copyWith({
+    List<CurrentPriceModel?>? historyCurrentPrice,
+  }) {
+    return HistoryCurrentPriceModel(
+      historyCurrentPrice: historyCurrentPrice ?? this.historyCurrentPrice,
+    );
+  }
 }
