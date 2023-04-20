@@ -18,15 +18,20 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   _getHistoryCurrentPrice(
       GetDataHistoryEvent event, Emitter<HistoryState> emit) async {
     emit(GetdataHistoryLoaddingState());
-    var dataHistoryJson = jsonDecode(await getDataHistory() ?? '');
-    var dataHistoryList = HistoryCurrentPriceModel.fromJson(dataHistoryJson);
-    emit(GetdataHistoryPassState(dataHistory: dataHistoryList));
+    var dataHistoryString = await getDataHistory() ?? '';
+    if (dataHistoryString.isEmpty) {
+      emit(GetdataHistoryEmptyState(massage: "ไม่พบข้อมูล"));
+    } else {
+      var dataHistoryJson = jsonDecode(dataHistoryString);
+      var dataHistoryList = HistoryCurrentPriceModel.fromJson(dataHistoryJson);
+      emit(GetdataHistoryPassState(dataHistory: dataHistoryList));
+    }
   }
 
   _removeHistoryCurrentPrice(
       DeleteDataHistoryEvent event, Emitter<HistoryState> emit) async {
     emit(GetdataHistoryLoaddingState());
     await saveDataHistory("");
-    emit(GetdataHistoryPassState(dataHistory: null));
+    emit(GetdataHistoryEmptyState(massage: "ไม่พบข้อมูล"));
   }
 }

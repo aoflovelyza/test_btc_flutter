@@ -12,3 +12,8 @@ class GetdataHistoryPassState extends HistoryState {
     required this.dataHistory,
   });
 }
+
+class GetdataHistoryEmptyState extends HistoryState {
+  final String? massage;
+  GetdataHistoryEmptyState({required this.massage});
+}
